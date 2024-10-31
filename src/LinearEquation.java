@@ -43,13 +43,30 @@ public class LinearEquation {
     public String equation() {
         int numerator = (y2 - y1);
         int denominator = (x2 - x1);
+        boolean addSlope = false;
 
+        if (numerator != 0) {
+            if (denominator % numerator == 0) {
+                addSlope = true;
+            }
+        }
 
         if (numerator == 0) {
-            return "y = " + yIntercept();
-        } else if (denominator == 0) {
-            return "y = " + yIntercept();
-        } else return "y = " + numerator + "/" + denominator + "x + " + yIntercept();
+            return "The equation of the line between these points is: y = " + (int) yIntercept();
+        }
+        if (denominator == 0) {
+            return "These points are on a vertical line: x = " + x1;
+        }
+        if (yIntercept() <= -1) {
+            if (addSlope == true) {
+                return "The equation of the line between these points is: y = " + slope() + "x " + yIntercept();
+            }
+            return "The equation of the line between these points is: y = " + numerator + "/" + denominator + "x " + yIntercept();
+        }
+        if (addSlope == false) {
+            return "The equation of the line between these points is: y = " + slope() + "x + " + yIntercept();
+        }
+        else return "The equation of the line between these points is: y = " + numerator + "/" + denominator + "x + " + yIntercept();
     }
 
 
@@ -64,8 +81,10 @@ public class LinearEquation {
 
 
     public String lineInfo() {
-        return "The two points are (" + x1 + ", " + y1 + ") and (" + x2 + ", " + y2 + ") \n" +
-                "The equation of the line between these points is: " + equation() + "\n" +
+        if ((x2 - x1) == 0) {
+            return equation();
+        } else return "The two points are (" + x1 + ", " + y1 + ") and (" + x2 + ", " + y2 + ") \n" +
+                equation() + "\n" +
                 "The slope of this line is: " + slope() + "\n" +
                 "The y-intercept of this line is: " + yIntercept() + "\n" +
                 "The distance between these points is " + distance();

@@ -26,6 +26,7 @@ public class LinearEquationLogic {
     public void start() {
         getCoordinateInfo();
         getData();
+        repeatCoordinateProcess();
     }
 
 
@@ -64,6 +65,17 @@ public class LinearEquationLogic {
 
         //initialize instance variable
         LinearEquation = new LinearEquation(intX1, intY1, intX2, intY2);
+    }
+
+    //repeats the process
+    private void repeatCoordinateProcess() {
+        System.out.print("Would you like to enter another pair of coordinates? y/n: ");
+        String repeat = myScanner.nextLine();
+        while (repeat.equals("y") || repeat.equals("yes")) {
+            getCoordinateInfo();
+            getData();
+        }
+        System.out.println("Thank you for using the slope calculator, goodbye!");
     }
 
 
