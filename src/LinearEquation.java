@@ -4,6 +4,9 @@ public class LinearEquation {
     private final int y1;
     private final int x2;
     private final int y2;
+    private final int numerator;
+    private final int denominator;
+
 
 
 
@@ -14,13 +17,22 @@ public class LinearEquation {
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+        this.numerator = (y2 - y1);
+        this.denominator = (x2 - x1);
+    }
+
+    //checks if x's are equal, so vertical line would not ask to enter a value for x
+    public boolean xEqual() {
+        boolean xEqual = false;
+        if (x1 == x2) {
+            xEqual = true;
+        }
+        return xEqual;
     }
 
 
-
-
     public double distance() {
-        return roundedToHundredth (Math.sqrt((Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))));
+        return roundedToHundredth(Math.sqrt((Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))));
     }
 
 
@@ -34,50 +46,49 @@ public class LinearEquation {
 
 
     public double slope() {
-        return roundedToHundredth((double) (y2 - y1) / (x2 - x1));
+        return roundedToHundredth((double) (numerator) / (denominator));
+    }
+
+    public String slopeString() {
+        double calculation = (double) numerator / denominator;
+        int absY = Math.abs(numerator);
+        int absX = Math.abs(denominator);
+        int modifier = 1;
+        if (numerator < 0) {
+            modifier *= -1;
+        }
+        if (denominator < 0) {
+            modifier *= -1;
+        }
+        if (Math.abs(calculation) % 1.0 == 0.0) {
+
+            return (String.valueOf((int) calculation * modifier)); //I found String.valueOf off of Google, which converts a string into a number
+        }
+        return (absY * modifier) + "/" + absX;
     }
 
 
-
-
     public String equation() {
-        int numerator = (y2 - y1);
-        int denominator = (x2 - x1);
-        boolean addSlope = false;
-
-        if (numerator != 0) {
-            if (denominator % numerator == 0) {
-                addSlope = true;
-            }
-        }
-
         if (numerator == 0) {
             return "The equation of the line between these points is: y = " + (int) yIntercept();
         }
         if (denominator == 0) {
             return "These points are on a vertical line: x = " + x1;
         }
+        if (yIntercept() == 0) {
+            return "The equation of the line between these points is: y = " + slopeString() + "x";
+        }
         if (yIntercept() <= -1) {
-            if (addSlope == true) {
-                return "The equation of the line between these points is: y = " + slope() + "x " + yIntercept();
-            }
-            return "The equation of the line between these points is: y = " + numerator + "/" + denominator + "x " + yIntercept();
-        }
-        if (addSlope == false) {
-            return "The equation of the line between these points is: y = " + slope() + "x + " + yIntercept();
-        }
-        else return "The equation of the line between these points is: y = " + numerator + "/" + denominator + "x + " + yIntercept();
+            return "The equation of the line between these points is: y = " + slopeString() + "x " + yIntercept();
+        } else
+            return "The equation of the line between these points is: y = " + slopeString() + "x + " + yIntercept();
     }
-
-
 
 
     public String coordinateForX(double x) {
         double yIntercept = slope() * x + yIntercept();
         return "The point on the line is " + "(" + x + ", " + yIntercept + ")";
     }
-
-
 
 
     public String lineInfo() {
@@ -90,9 +101,7 @@ public class LinearEquation {
                 "The distance between these points is " + distance();
     }
 
-
-
-
+    //helper methods
     private double roundedToHundredth(double toRound) {
         return Math.round(toRound * 100) / 100.0;
     }

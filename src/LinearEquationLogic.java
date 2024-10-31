@@ -18,21 +18,25 @@ public class LinearEquationLogic {
         myScanner = new Scanner(System.in);
         coordinate1 = null;
         coordinate2 = null;
-        LinearEquation = null;
+        linearEquation = null;
     }
 
 
     // method that gets called which starts the program
     public void start() {
-        getCoordinateInfo();
-        getData();
-        repeatCoordinateProcess();
+        System.out.println("Welcome to the slope calculator!");
+        String repeat = "y";
+        while ((repeat.equals("y") || repeat.equals("yes") || repeat.equals("Y"))) {
+            getCoordinateInfo();
+            getData();
+            System.out.print("Would you like to enter another pair of coordinates? y/n: ");
+            repeat = myScanner.nextLine();
+        }
     }
 
 
     //private helper method
     private void getCoordinateInfo() {
-        System.out.println("Welcome to the slope calculator!");
         System.out.print("Enter coordinate 1 in the format \"(x, y):\" ");
         coordinate1 = myScanner.nextLine();
         System.out.print("Enter coordinate 2 in the format \"(x, y):\" ");
@@ -64,30 +68,20 @@ public class LinearEquationLogic {
 
 
         //initialize instance variable
-        LinearEquation = new LinearEquation(intX1, intY1, intX2, intY2);
+        linearEquation = new LinearEquation(intX1, intY1, intX2, intY2);
     }
-
-    //repeats the process
-    private void repeatCoordinateProcess() {
-        System.out.print("Would you like to enter another pair of coordinates? y/n: ");
-        String repeat = myScanner.nextLine();
-        while (repeat.equals("y") || repeat.equals("yes")) {
-            getCoordinateInfo();
-            getData();
-        }
-        System.out.println("Thank you for using the slope calculator, goodbye!");
-    }
-
 
     //private helper method
     private void getData() {
-        System.out.println(LinearEquation.lineInfo());
+        System.out.println(linearEquation.lineInfo());
         System.out.println(); //skips a line
-        System.out.print("Enter a value for x: ");
-        double x = myScanner.nextDouble();
-        myScanner.nextLine();
-        System.out.println(); //skips a line
-        System.out.println(LinearEquation.coordinateForX(x));
+        if (!linearEquation.xEqual()) {
+            System.out.print("Enter a value for x: ");
+            double x = myScanner.nextDouble();
+            myScanner.nextLine();
+            System.out.println(); //skips a line
+            System.out.println(linearEquation.coordinateForX(x));
+        }
         System.out.println(); //skips a line
     }
 }
