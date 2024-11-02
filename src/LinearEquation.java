@@ -49,6 +49,9 @@ public class LinearEquation {
         return roundedToHundredth((double) (numerator) / (denominator));
     }
 
+
+
+
     public String slopeString() {
         double calculation = (double) numerator / denominator;
         int absY = Math.abs(numerator);
@@ -66,7 +69,7 @@ public class LinearEquation {
                     return "";
                 } else return "-";
             }
-            return (String.valueOf((int) calculation * modifier)); //I found String.valueOf off of Google, which converts a string into a number
+            return (String.valueOf((int) Math.abs(calculation) * modifier)); //I found String.valueOf off of Google, which converts a string into a number
         }
         return (absY * modifier) + "/" + absX;
     }
