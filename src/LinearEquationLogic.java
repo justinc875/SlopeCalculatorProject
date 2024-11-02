@@ -26,7 +26,7 @@ public class LinearEquationLogic {
     public void start() {
         System.out.println("Welcome to the slope calculator!");
         String repeat = "y";
-        while ((repeat.equals("y") || repeat.equals("yes") || repeat.equals("Y"))) {
+        while ((repeat.equals("y") || repeat.equals("yes") || repeat.equals("Y") || repeat.equals("Yes"))) {
             getCoordinateInfo();
             getData();
             System.out.print("Would you like to enter another pair of coordinates? y/n: ");
@@ -75,7 +75,7 @@ public class LinearEquationLogic {
     private void getData() {
         System.out.println(linearEquation.lineInfo());
         System.out.println(); //skips a line
-        if (!linearEquation.xEqual()) {
+        if (!linearEquation.xEqual()) { //if there was a vertical line case, this would be skipped
             System.out.print("Enter a value for x: ");
             double x = myScanner.nextDouble();
             myScanner.nextLine();

@@ -61,7 +61,11 @@ public class LinearEquation {
             modifier *= -1;
         }
         if (Math.abs(calculation) % 1.0 == 0.0) {
-
+            if (Math.abs(calculation) == 1.0) {
+                if (calculation == 1) {
+                    return "";
+                } else return "-";
+            }
             return (String.valueOf((int) calculation * modifier)); //I found String.valueOf off of Google, which converts a string into a number
         }
         return (absY * modifier) + "/" + absX;
