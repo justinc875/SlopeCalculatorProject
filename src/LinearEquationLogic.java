@@ -8,7 +8,7 @@ public class LinearEquationLogic {
 
     //instance variables
     private Scanner myScanner;
-    private LinearEquation LinearEquation;
+    private LinearEquation linearEquation;
     private String coordinate1;
     private String coordinate2;
 
